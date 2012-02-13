@@ -25,13 +25,8 @@ module Kaminari
 
         # a workaround to count the actual model instances on distinct query because count + distinct returns wrong value in some cases. see https://github.com/amatsuda/kaminari/pull/160
         uses_distinct_sql_statement = c.to_sql =~ /DISTINCT/i
-        if uses_distinct_sql_statement
-          c.length
-        else
-          # .group returns an OrderdHash that responds to #count
-          c = c.count
-          c.respond_to?(:count) ? c.count : c
-        end
+        
+        c.length
       end
     end
   end
